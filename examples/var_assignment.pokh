@@ -1,0 +1,3 @@
+n := "Ajay"
+age := 12
+stdout(1,2)

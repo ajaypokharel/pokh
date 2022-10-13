@@ -1,0 +1,25 @@
+[
+ {
+  "type": "var_assignment",
+  "var_name": {
+   "type": "identifier",
+   "value": "n",
+   "text": "n",
+   "offset": 0,
+   "lineBreaks": 0,
+   "line": 1,
+   "col": 1
+  },
+  "value": {
+   "type": "string",
+   "value": "\"Ajay\"",
+   "text": "\"Ajay\"",
+   "offset": 5,
+   "lineBreaks": 0,
+   "line": 1,
+   "col": 6
+  }
+ },
+ null,
+ null
+]
