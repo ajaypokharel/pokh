@@ -5,18 +5,19 @@
 @lexer myLexer
 
 statements
-    -> _ml statement (__lb_  statement):*
+    -> _ml statement (__lb_  statement):* _ml
         {% 
             data => {
                 const repeated = data[2];
-                const restStatements = repeated.map(chunks => chunks[2]);
+                const restStatements = repeated.map(chunks => chunks[1]);
                 return [data[1], ...restStatements];
             }
         %}
 
 statement
-    -> var_assignment   {% id %}
-    | fun_call          {% id %}
+    -> var_assignment (__ %comment):*   {% id %}
+    | fun_call (__ %comment):*          {% id %}
+    | %comment                         {% id %}
 
 fun_call
     -> %identifier _ %lparen _ param_list _ %rparen

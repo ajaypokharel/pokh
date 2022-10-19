@@ -20,6 +20,66 @@
    "col": 6
   }
  },
- null,
- null
+ {
+  "type": "var_assignment",
+  "var_name": {
+   "type": "identifier",
+   "value": "age",
+   "text": "age",
+   "offset": 12,
+   "lineBreaks": 0,
+   "line": 2,
+   "col": 1
+  },
+  "value": {
+   "type": "number",
+   "value": "12",
+   "text": "12",
+   "offset": 17,
+   "lineBreaks": 0,
+   "line": 2,
+   "col": 6
+  }
+ },
+ {
+  "type": "comment",
+  "value": "// this",
+  "text": "// this",
+  "offset": 20,
+  "lineBreaks": 0,
+  "line": 3,
+  "col": 1
+ },
+ {
+  "type": "function_call",
+  "function_name": {
+   "type": "identifier",
+   "value": "stdout",
+   "text": "stdout",
+   "offset": 28,
+   "lineBreaks": 0,
+   "line": 4,
+   "col": 1
+  },
+  "arguments": [
+   {
+    "type": "number",
+    "value": "1",
+    "text": "1",
+    "offset": 35,
+    "lineBreaks": 0,
+    "line": 4,
+    "col": 8
+   },
+   {
+    "type": "number",
+    "value": "2",
+    "text": "2",
+    "offset": 38,
+    "lineBreaks": 0,
+    "line": 4,
+    "col": 11
+   }
+  ]
+ }
 ]

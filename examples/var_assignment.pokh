@@ -1,3 +1,4 @@
 n := "Ajay"
-age := 12
-stdout(1,2)
+age:=12
+// this
+stdout(1, 2)    // comment
