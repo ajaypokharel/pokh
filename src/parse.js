@@ -14,6 +14,7 @@ async function main() {
 
   if (parser.results.length > 1) {
     console.log("Error: Ambigous grammar detected");
+
   } else if (parser.results.length == 1) {
     const ast = parser.results[0];
     const outputFileName = filename.replace(".pokh", ".ast");

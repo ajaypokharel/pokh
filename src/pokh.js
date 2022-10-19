@@ -10,15 +10,22 @@ var grammar = {
     {"name": "statements$ebnf$1", "symbols": []},
     {"name": "statements$ebnf$1$subexpression$1", "symbols": ["__lb_", "statement"]},
     {"name": "statements$ebnf$1", "symbols": ["statements$ebnf$1", "statements$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
-    {"name": "statements", "symbols": ["_ml", "statement", "statements$ebnf$1"], "postprocess":  
+    {"name": "statements", "symbols": ["_ml", "statement", "statements$ebnf$1", "_ml"], "postprocess":  
         data => {
             const repeated = data[2];
-            const restStatements = repeated.map(chunks => chunks[2]);
+            const restStatements = repeated.map(chunks => chunks[1]);
             return [data[1], ...restStatements];
         }
                 },
-    {"name": "statement", "symbols": ["var_assignment"], "postprocess": id},
-    {"name": "statement", "symbols": ["fun_call"], "postprocess": id},
+    {"name": "statement$ebnf$1", "symbols": []},
+    {"name": "statement$ebnf$1$subexpression$1", "symbols": ["__", (myLexer.has("comment") ? {type: "comment"} : comment)]},
+    {"name": "statement$ebnf$1", "symbols": ["statement$ebnf$1", "statement$ebnf$1$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "statement", "symbols": ["var_assignment", "statement$ebnf$1"], "postprocess": id},
+    {"name": "statement$ebnf$2", "symbols": []},
+    {"name": "statement$ebnf$2$subexpression$1", "symbols": ["__", (myLexer.has("comment") ? {type: "comment"} : comment)]},
+    {"name": "statement$ebnf$2", "symbols": ["statement$ebnf$2", "statement$ebnf$2$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
+    {"name": "statement", "symbols": ["fun_call", "statement$ebnf$2"], "postprocess": id},
+    {"name": "statement", "symbols": [(myLexer.has("comment") ? {type: "comment"} : comment)], "postprocess": id},
     {"name": "fun_call", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier), "_", (myLexer.has("lparen") ? {type: "lparen"} : lparen), "_", "param_list", "_", (myLexer.has("rparen") ? {type: "rparen"} : rparen)], "postprocess": 
         data => {
             return {

@@ -1,6 +1,7 @@
 let n = "Ajay";
 let age = 12;
-stdout(n, age)
+
+stdout(1, 2)
 function stdout(...args) {
   console.log(...args);
 }

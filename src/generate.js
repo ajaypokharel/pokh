@@ -49,6 +49,10 @@ generateJsForStatement = (node) => {
     return node.value;
   } else if (node.type === "identifier") {
     return node.value;
+  } else if (node.type === "comment") {
+    return "";
+  } else {
+    throw new Error(`Unhandled AST node type ${node.type}`)
   }
 };
 
