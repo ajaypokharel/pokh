@@ -64,9 +64,16 @@ var grammar = {
         }
             },
     {"name": "expression", "symbols": [(myLexer.has("string") ? {type: "string"} : string)], "postprocess": id},
-    {"name": "expression", "symbols": [(myLexer.has("number") ? {type: "number"} : number)], "postprocess": id},
+    {"name": "expression", "symbols": ["number"], "postprocess": id},
     {"name": "expression", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier)], "postprocess": id},
     {"name": "expression", "symbols": ["fun_call"], "postprocess": id},
+    {"name": "number", "symbols": [(myLexer.has("digits") ? {type: "digits"} : digits)], "postprocess": id},
+    {"name": "number", "symbols": [(myLexer.has("digits") ? {type: "digits"} : digits), (myLexer.has("dot") ? {type: "dot"} : dot), (myLexer.has("digits") ? {type: "digits"} : digits)], "postprocess":  data => 
+        {return {
+                    type: "number",
+                    value: data.join(""),
+                } }
+            },
     {"name": "_ml$ebnf$1", "symbols": []},
     {"name": "_ml$ebnf$1$subexpression$1", "symbols": [(myLexer.has("white_space") ? {type: "white_space"} : white_space)]},
     {"name": "_ml$ebnf$1$subexpression$1", "symbols": [(myLexer.has("NL") ? {type: "NL"} : NL)]},

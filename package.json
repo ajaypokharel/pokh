@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "gen-parser": "nearleyc src/pokh.ne -o src/pokh.js"
+    "gen-parser": "nearleyc src/pokh.ne -o src/pokh.js; npm run astParser",
+    "astParser": " node src/parse.js examples/var_assignment.pokh; npm run js-parser",
+    "js-parser": "node src/generate.js examples/var_assignment.ast",
+    "runPokh": "node examples/var_assignment.js"
   },
   "keywords": [],
   "author": "",
