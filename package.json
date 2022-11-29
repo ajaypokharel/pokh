@@ -8,7 +8,7 @@
     "gen-parser": "nearleyc src/pokh.ne -o src/pokh.js; npm run astParser",
     "astParser": " node src/parse.js examples/var_assignment.pokh; npm run js-parser",
     "js-parser": "node src/generate.js examples/var_assignment.ast",
-    "runPokh": "node examples/var_assignment.js"
+    "pokh": "node examples/var_assignment.js"
   },
   "keywords": [],
   "author": "",

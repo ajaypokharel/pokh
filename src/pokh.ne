@@ -17,7 +17,8 @@ statements
 statement
     -> var_assignment (__ %comment):*   {% id %}
     | fun_call (__ %comment):*          {% id %}
-    | %comment                         {% id %}
+    | %comment                          {% id %}
+    | function_definition               {% id %}
 
 fun_call
     -> %identifier _ %lparen _ param_list _ %rparen
@@ -40,6 +41,21 @@ fun_call
                 }
             }
         %}
+
+
+
+function_definition
+    -> %identifier _ %lparen _ param_list _ %rparen _ %lbrace _ statements _ %rbrace
+    {%
+        (data) => {
+            return {
+                type: "function_definition",
+                function_name: data[0],
+                arguments: data[4],
+                body: data[10]
+            }
+        }
+    %}
 
 
 param_list
