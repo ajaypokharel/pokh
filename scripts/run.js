@@ -5,7 +5,7 @@ const exec = util.promisify(require("child_process").exec);
 async function main() {
   const filePath = process.argv[2];
   if (!filePath) {
-    console.log("Please provide a file name.");
+    console.log("Please provide a .ast file.");
     return;
   }
 

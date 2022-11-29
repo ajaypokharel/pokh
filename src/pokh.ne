@@ -71,9 +71,19 @@ var_assignment
 
 expression
     -> %string      {% id %}
-    | %number       {% id %}
+    | number       {% id %}
     | %identifier   {% id %}
     | fun_call      {% id %}
+
+
+number
+    -> %digits   {% id %}
+    | %digits %dot %digits    {% data => 
+        {return {
+                    type: "number",
+                    value: data.join(""),
+                } }
+    %}
 
 
 # multiline whitespace, optional

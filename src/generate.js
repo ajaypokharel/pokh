@@ -45,7 +45,7 @@ generateJsForStatement = (node) => {
     return `${func_name}(${argList})`;
   } else if (node.type === "string") {
     return node.value;
-  } else if (node.type === "number") {
+  } else if (node.type === "number" || node.type === "digits") {
     return node.value;
   } else if (node.type === "identifier") {
     return node.value;
