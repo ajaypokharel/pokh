@@ -51,8 +51,20 @@ generateJsForStatement = (node) => {
     return node.value;
   } else if (node.type === "comment") {
     return "";
+  } else if (node.type === "function_definition") {
+    const funcName = node.function_name.value;
+    const argList = node.arguments
+    .map((arg) => {
+      return generateJsForStatement(arg);
+    })
+    .join(", ");
+    const body = node.body.map((content) => {return generateJsForStatement(content)}).join("\n");
+    const indentBody = body.split("\n").map(line => "\t" + line).join("\n")
+
+    return `function ${funcName}(${argList}) {\n${indentBody}\n}`;
+
   } else {
-    throw new Error(`Unhandled AST node type ${node.type}`)
+    throw new Error(`Unhandled AST node type ${node.type}`);
   }
 };
 

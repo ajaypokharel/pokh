@@ -26,6 +26,7 @@ var grammar = {
     {"name": "statement$ebnf$2", "symbols": ["statement$ebnf$2", "statement$ebnf$2$subexpression$1"], "postprocess": function arrpush(d) {return d[0].concat([d[1]]);}},
     {"name": "statement", "symbols": ["fun_call", "statement$ebnf$2"], "postprocess": id},
     {"name": "statement", "symbols": [(myLexer.has("comment") ? {type: "comment"} : comment)], "postprocess": id},
+    {"name": "statement", "symbols": ["function_definition"], "postprocess": id},
     {"name": "fun_call", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier), "_", (myLexer.has("lparen") ? {type: "lparen"} : lparen), "_", "param_list", "_", (myLexer.has("rparen") ? {type: "rparen"} : rparen)], "postprocess": 
         data => {
             return {
@@ -44,6 +45,16 @@ var grammar = {
             }
         }
                 },
+    {"name": "function_definition", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier), "_", (myLexer.has("lparen") ? {type: "lparen"} : lparen), "_", "param_list", "_", (myLexer.has("rparen") ? {type: "rparen"} : rparen), "_", (myLexer.has("lbrace") ? {type: "lbrace"} : lbrace), "_", "statements", "_", (myLexer.has("rbrace") ? {type: "rbrace"} : rbrace)], "postprocess": 
+        (data) => {
+            return {
+                type: "function_definition",
+                function_name: data[0],
+                arguments: data[4],
+                body: data[10]
+            }
+        }
+            },
     {"name": "param_list", "symbols": ["expression"], "postprocess":  
         data => {
             return [data[0]];

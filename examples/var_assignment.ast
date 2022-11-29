@@ -58,9 +58,9 @@
   },
   "arguments": [
    {
-    "type": "digits",
-    "value": "1",
-    "text": "1",
+    "type": "string",
+    "value": "\"Hello\"",
+    "text": "\"Hello\"",
     "offset": 38,
     "lineBreaks": 0,
     "line": 4,
@@ -70,10 +70,196 @@
     "type": "digits",
     "value": "2",
     "text": "2",
-    "offset": 41,
+    "offset": 47,
     "lineBreaks": 0,
     "line": 4,
+    "col": 17
+   }
+  ]
+ },
+ {
+  "type": "function_definition",
+  "function_name": {
+   "type": "identifier",
+   "value": "myfunc",
+   "text": "myfunc",
+   "offset": 66,
+   "lineBreaks": 0,
+   "line": 7,
+   "col": 1
+  },
+  "arguments": [
+   {
+    "type": "identifier",
+    "value": "x",
+    "text": "x",
+    "offset": 73,
+    "lineBreaks": 0,
+    "line": 7,
+    "col": 8
+   },
+   {
+    "type": "identifier",
+    "value": "y",
+    "text": "y",
+    "offset": 76,
+    "lineBreaks": 0,
+    "line": 7,
     "col": 11
+   }
+  ],
+  "body": [
+   {
+    "type": "var_assignment",
+    "var_name": {
+     "type": "identifier",
+     "value": "m",
+     "text": "m",
+     "offset": 85,
+     "lineBreaks": 0,
+     "line": 8,
+     "col": 5
+    },
+    "value": {
+     "type": "function_call",
+     "function_name": {
+      "type": "identifier",
+      "value": "sum",
+      "text": "sum",
+      "offset": 90,
+      "lineBreaks": 0,
+      "line": 8,
+      "col": 10
+     },
+     "arguments": [
+      {
+       "type": "identifier",
+       "value": "x",
+       "text": "x",
+       "offset": 94,
+       "lineBreaks": 0,
+       "line": 8,
+       "col": 14
+      },
+      {
+       "type": "identifier",
+       "value": "y",
+       "text": "y",
+       "offset": 96,
+       "lineBreaks": 0,
+       "line": 8,
+       "col": 16
+      }
+     ]
+    }
+   },
+   {
+    "type": "var_assignment",
+    "var_name": {
+     "type": "identifier",
+     "value": "j",
+     "text": "j",
+     "offset": 103,
+     "lineBreaks": 0,
+     "line": 9,
+     "col": 5
+    },
+    "value": {
+     "type": "function_call",
+     "function_name": {
+      "type": "identifier",
+      "value": "mod",
+      "text": "mod",
+      "offset": 108,
+      "lineBreaks": 0,
+      "line": 9,
+      "col": 10
+     },
+     "arguments": [
+      {
+       "type": "identifier",
+       "value": "x",
+       "text": "x",
+       "offset": 112,
+       "lineBreaks": 0,
+       "line": 9,
+       "col": 14
+      },
+      {
+       "type": "identifier",
+       "value": "y",
+       "text": "y",
+       "offset": 115,
+       "lineBreaks": 0,
+       "line": 9,
+       "col": 17
+      }
+     ]
+    }
+   },
+   {
+    "type": "function_call",
+    "function_name": {
+     "type": "identifier",
+     "value": "stdout",
+     "text": "stdout",
+     "offset": 122,
+     "lineBreaks": 0,
+     "line": 10,
+     "col": 5
+    },
+    "arguments": [
+     {
+      "type": "identifier",
+      "value": "m",
+      "text": "m",
+      "offset": 129,
+      "lineBreaks": 0,
+      "line": 10,
+      "col": 12
+     },
+     {
+      "type": "identifier",
+      "value": "j",
+      "text": "j",
+      "offset": 132,
+      "lineBreaks": 0,
+      "line": 10,
+      "col": 15
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "type": "function_call",
+  "function_name": {
+   "type": "identifier",
+   "value": "myfunc",
+   "text": "myfunc",
+   "offset": 138,
+   "lineBreaks": 0,
+   "line": 13,
+   "col": 1
+  },
+  "arguments": [
+   {
+    "type": "digits",
+    "value": "10",
+    "text": "10",
+    "offset": 145,
+    "lineBreaks": 0,
+    "line": 13,
+    "col": 8
+   },
+   {
+    "type": "digits",
+    "value": "3",
+    "text": "3",
+    "offset": 149,
+    "lineBreaks": 0,
+    "line": 13,
+    "col": 12
    }
   ]
  }

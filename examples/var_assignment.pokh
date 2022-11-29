@@ -1,4 +1,13 @@
 n := "Ajay"
 age:= 12.5
 // this
-stdout(1, 2)    // comment
+stdout("Hello", 2)    // comment
+
+
+myfunc(x, y) {
+    m := sum(x,y)
+    j := mod(x, y)
+    stdout(m, j)
+}
+
+myfunc(10, 3)
