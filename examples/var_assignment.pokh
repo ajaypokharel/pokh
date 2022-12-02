@@ -3,6 +3,16 @@ age:= 12.5
 // this
 stdout("Hello", 2)    // comment
 
+y := [1, 2, 3]
+x := true
+
+dict := {
+    1:2,
+    3:4,
+    5:5
+}
+
+stdout(dict, y)
 
 myfunc(x, y) {
     m := sum(x,y)

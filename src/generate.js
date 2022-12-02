@@ -54,15 +54,43 @@ generateJsForStatement = (node) => {
   } else if (node.type === "function_definition") {
     const funcName = node.function_name.value;
     const argList = node.arguments
-    .map((arg) => {
-      return generateJsForStatement(arg);
-    })
-    .join(", ");
-    const body = node.body.map((content) => {return generateJsForStatement(content)}).join("\n");
-    const indentBody = body.split("\n").map(line => "\t" + line).join("\n")
+      .map((arg) => {
+        return generateJsForStatement(arg);
+      })
+      .join(", ");
+    const body = node.body
+      .map((content) => {
+        return generateJsForStatement(content);
+      })
+      .join("\n");
+    const indentBody = body
+      .split("\n")
+      .map((line) => "\t" + line)
+      .join("\n");
 
     return `function ${funcName}(${argList}) {\n${indentBody}\n}`;
-
+  } else if (node.type === "boolean_literal") {
+    return node.value;
+  } else if (node.type === "dictionary_literal") {
+    const dictLiteral =
+      "{" +
+      node.entries
+        .map((entry) => {
+          return entry[0].value + ":" + generateJsForStatement(entry[1]);
+        })
+        .join(", ") +
+      " }";
+    return dictLiteral;
+  } else if (node.type == "list_literal") {
+    const listLiteral =
+      "[" +
+      node.items
+        .map((item) => {
+          return generateJsForStatement(item);
+        })
+        .join(", ") +
+      "]";
+    return listLiteral;
   } else {
     throw new Error(`Unhandled AST node type ${node.type}`);
   }

@@ -74,10 +74,62 @@ var grammar = {
             }
         }
             },
-    {"name": "expression", "symbols": [(myLexer.has("string") ? {type: "string"} : string)], "postprocess": id},
-    {"name": "expression", "symbols": ["number"], "postprocess": id},
-    {"name": "expression", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier)], "postprocess": id},
-    {"name": "expression", "symbols": ["fun_call"], "postprocess": id},
+    {"name": "expression", "symbols": ["data_expression"], "postprocess": id},
+    {"name": "expression", "symbols": ["non_data_expression"], "postprocess": id},
+    {"name": "non_data_expression", "symbols": [(myLexer.has("string") ? {type: "string"} : string)], "postprocess": id},
+    {"name": "non_data_expression", "symbols": ["number"], "postprocess": id},
+    {"name": "non_data_expression", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier)], "postprocess": id},
+    {"name": "non_data_expression", "symbols": ["fun_call"], "postprocess": id},
+    {"name": "non_data_expression", "symbols": ["boolean_literal"], "postprocess": id},
+    {"name": "data_expression", "symbols": ["list_literal"], "postprocess": id},
+    {"name": "data_expression", "symbols": ["dictionary_literal"], "postprocess": id},
+    {"name": "list_literal", "symbols": [(myLexer.has("lbigBrac") ? {type: "lbigBrac"} : lbigBrac), "list_items", (myLexer.has("rbigBrac") ? {type: "rbigBrac"} : rbigBrac)], "postprocess": 
+        data=> {
+             return {
+                 type: "list_literal",
+                 items: data[1],
+             }
+         }
+                },
+    {"name": "list_items", "symbols": [], "postprocess": () => []},
+    {"name": "list_items", "symbols": ["_ml", "expression", "_ml"], "postprocess": data=> [data[1]]},
+    {"name": "list_items", "symbols": ["_ml", "expression", "_ml", {"literal":","}, "list_items"], "postprocess": 
+        data=> [data[1], ...data[4]]
+                },
+    {"name": "dictionary_literal", "symbols": [{"literal":"{"}, "dictionary_entries", {"literal":"}"}], "postprocess": 
+        data=> {
+         return {
+             type: "dictionary_literal",
+             entries: data[1],
+             }
+         }
+                },
+    {"name": "dictionary_entries", "symbols": [], "postprocess": () => []},
+    {"name": "dictionary_entries", "symbols": ["_ml", "dictionary_entry", "_ml"], "postprocess": 
+        data=> [data[1]]
+                },
+    {"name": "dictionary_entries", "symbols": ["_ml", "dictionary_entry", "_ml", {"literal":","}, "dictionary_entries"], "postprocess": 
+        data=> [data[1], ...data[4]]
+                },
+    {"name": "dictionary_entry", "symbols": ["expression", "_", (myLexer.has("colon") ? {type: "colon"} : colon), "_", "expression"], "postprocess": 
+        data=> [data[0], data[4]]
+                },
+    {"name": "boolean_literal", "symbols": [(myLexer.has("true") ? {type: "true"} : true)], "postprocess": 
+        (data) => {
+            return {
+                type: "boolean_literal",
+                value: data[0],
+            }
+        }
+            },
+    {"name": "boolean_literal", "symbols": [(myLexer.has("false") ? {type: "false"} : false)], "postprocess": 
+        data=> {
+            return { 
+             type: "boolean_literal",
+             value: data[0],
+             }
+        }
+                },
     {"name": "number", "symbols": [(myLexer.has("digits") ? {type: "digits"} : digits)], "postprocess": id},
     {"name": "number", "symbols": [(myLexer.has("digits") ? {type: "digits"} : digits), (myLexer.has("dot") ? {type: "dot"} : dot), (myLexer.has("digits") ? {type: "digits"} : digits)], "postprocess":  data => 
         {return {
