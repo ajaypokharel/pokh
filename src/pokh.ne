@@ -57,6 +57,25 @@ function_definition
         }
     %}
 
+# executable_statement
+#     -> _    {% () => [] %}
+#     | statements    {% data => data[0] %}
+#     | _ return_statement _ {% id %}
+#     | _ statements _ "\n" executable_statement
+#     {%
+#         data => [data[1], ...data[4]]
+#     %}
+
+# return_statement
+#    -> "return" __ expression
+#        {%
+#           data=> {
+#             return {
+#                type: "return_statement",
+#                value: data[2],
+#             }
+#            }
+#        %}
 
 param_list
     -> expression
@@ -85,12 +104,92 @@ var_assignment
         }
     %}
 
+
 expression
+    -> data_expression  {% id %}
+    | non_data_expression {% id %}
+
+non_data_expression
     -> %string      {% id %}
-    | number       {% id %}
+    | number        {% id %}
     | %identifier   {% id %}
     | fun_call      {% id %}
+    | boolean_literal   {% id %}
 
+data_expression
+    -> list_literal  {% id %}
+    | dictionary_literal    {% id %}
+
+
+
+list_literal
+    -> %lbigBrac list_items %rbigBrac
+        {%
+           data=> {
+                return {
+                    type: "list_literal",
+                    items: data[1],
+                }
+            }
+        %}
+
+list_items
+    -> null
+        {% () => [] %}
+    |  _ml expression _ml
+        {% data=> [data[1]] %}
+    |  _ml expression _ml "," list_items
+        {%
+           data=> [data[1], ...data[4]]
+        %}
+
+dictionary_literal
+    -> "{" dictionary_entries "}"
+        {%
+           data=> {
+            return {
+                type: "dictionary_literal",
+                entries: data[1],
+                }
+            }
+        %}
+# 
+dictionary_entries
+    -> null  {% () => [] %}
+    |  _ml dictionary_entry _ml
+        {%
+           data=> [data[1]]
+        %}
+    |  _ml dictionary_entry _ml "," dictionary_entries
+        {%
+           data=> [data[1], ...data[4]]
+        %}
+
+dictionary_entry
+    -> expression _ %colon _ expression
+        {%
+           data=> [data[0], data[4]]
+        %}
+
+boolean_literal
+    -> %true
+         {%
+        (data) => {
+            return {
+                type: "boolean_literal",
+                value: data[0],
+            }
+        }
+    %}
+    |  %false
+        {%
+           data=> {
+               return { 
+                type: "boolean_literal",
+                value: data[0],
+                }
+           }
+        %}
 
 number
     -> %digits   {% id %}
@@ -100,7 +199,6 @@ number
                     value: data.join(""),
                 } }
     %}
-
 
 # multiline whitespace, optional
 _ml -> (%white_space | %NL):*

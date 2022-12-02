@@ -9,13 +9,18 @@ let lexer = moo.compile({
   rparen: ")",
   lbrace: "{",
   rbrace: "}",
+  lbigBrac: "[",
+  rbigBrac: "]",
   keyword: ["while", "if", "else"],
   identifier: /[a-zA-Z][a-zA-Z_0-9]*/,
   lambdaArrow: "=>",
   assignment_operator: ":=",
+  colon: ":",
   dot: ".",
   comma: ",",
   NL: { match: /\n/, lineBreaks: true },
+  true: "true",
+  false: "false",
 });
 
 module.exports = lexer;
