@@ -27,6 +27,8 @@ var grammar = {
     {"name": "statement", "symbols": ["fun_call", "statement$ebnf$2"], "postprocess": id},
     {"name": "statement", "symbols": [(myLexer.has("comment") ? {type: "comment"} : comment)], "postprocess": id},
     {"name": "statement", "symbols": ["function_definition"], "postprocess": id},
+    {"name": "statement", "symbols": ["if_statement"], "postprocess": id},
+    {"name": "statement", "symbols": ["for_loop"], "postprocess": id},
     {"name": "fun_call", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier), "_", (myLexer.has("lparen") ? {type: "lparen"} : lparen), "_", "param_list", "_", (myLexer.has("rparen") ? {type: "rparen"} : rparen)], "postprocess": 
         data => {
             return {
@@ -76,13 +78,130 @@ var grammar = {
             },
     {"name": "expression", "symbols": ["data_expression"], "postprocess": id},
     {"name": "expression", "symbols": ["non_data_expression"], "postprocess": id},
-    {"name": "non_data_expression", "symbols": [(myLexer.has("string") ? {type: "string"} : string)], "postprocess": id},
-    {"name": "non_data_expression", "symbols": ["number"], "postprocess": id},
+    {"name": "expression", "symbols": ["alpha_operations"], "postprocess": id},
+    {"name": "non_data_expression", "symbols": ["alpha_num"], "postprocess": id},
     {"name": "non_data_expression", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier)], "postprocess": id},
     {"name": "non_data_expression", "symbols": ["fun_call"], "postprocess": id},
-    {"name": "non_data_expression", "symbols": ["boolean_literal"], "postprocess": id},
     {"name": "data_expression", "symbols": ["list_literal"], "postprocess": id},
     {"name": "data_expression", "symbols": ["dictionary_literal"], "postprocess": id},
+    {"name": "alpha_num", "symbols": [(myLexer.has("string") ? {type: "string"} : string)], "postprocess": id},
+    {"name": "alpha_num", "symbols": ["number"], "postprocess": id},
+    {"name": "alpha_num", "symbols": ["boolean_literal"], "postprocess": id},
+    {"name": "for_loop", "symbols": [{"literal":"for"}, "__", (myLexer.has("identifier") ? {type: "identifier"} : identifier), "__", {"literal":"in"}, "__", "expression", "_", (myLexer.has("lbrace") ? {type: "lbrace"} : lbrace), "_", "statements", "_", (myLexer.has("rbrace") ? {type: "rbrace"} : rbrace)], "postprocess": 
+        d => {
+            return{
+            type: "for_loop",
+            loop_variable: d[2],
+            iterable: d[6],
+            body: d[10],
+        }}
+                },
+    {"name": "if_statement", "symbols": [{"literal":"if"}, "__", "boolean_expression", "__", (myLexer.has("lbrace") ? {type: "lbrace"} : lbrace), "_", "statements", "_", (myLexer.has("rbrace") ? {type: "rbrace"} : rbrace)], "postprocess": 
+        d => ({
+            type: "if_statement",
+            condition: d[2],
+            statement: d[6],
+        })
+                },
+    {"name": "if_statement", "symbols": [{"literal":"if"}, "__", "boolean_expression", "__", (myLexer.has("lbrace") ? {type: "lbrace"} : lbrace), "_", "statements", "_", (myLexer.has("rbrace") ? {type: "rbrace"} : rbrace), "_ml", {"literal":"else"}, "__", (myLexer.has("lbrace") ? {type: "lbrace"} : lbrace), "_", "statements", "_", (myLexer.has("rbrace") ? {type: "rbrace"} : rbrace)], "postprocess": 
+        d => ({
+            type: "if_statement",
+            condition: d[2],
+            statement: d[6],
+            alternate: d[14],
+        })
+                },
+    {"name": "if_statement", "symbols": [{"literal":"if"}, "__", "boolean_expression", "__", (myLexer.has("lbrace") ? {type: "lbrace"} : lbrace), "_", "statements", "_", (myLexer.has("rbrace") ? {type: "rbrace"} : rbrace), "_ml", {"literal":"else"}, "__", "if_statement"], "postprocess": 
+        d => ({
+            type: "if_statement",
+            condition: d[2],
+            statement: d[6],
+            alternate: d[12],
+        })
+               },
+    {"name": "alpha_operations", "symbols": ["alpha_num", "_", (myLexer.has("multiplicative_operator") ? {type: "multiplicative_operator"} : multiplicative_operator), "_", "alpha_num"], "postprocess":  
+        data => {
+            return {
+                type: "numerical_operations",
+                operator: data[1],
+                left: data[0],
+                right: data[4]            
+                }
+        }
+            },
+    {"name": "alpha_operations", "symbols": ["alpha_num", "_", (myLexer.has("additive_operator") ? {type: "additive_operator"} : additive_operator), "_", "alpha_num"], "postprocess":  
+        data => {
+            return {
+                type: "numerical_operations",
+                operator: data[1],
+                left: data[0],
+                right: data[4]            
+                }
+        }
+            },
+    {"name": "boolean_expression", "symbols": ["comparison_expression"], "postprocess": id},
+    {"name": "boolean_expression", "symbols": ["comparison_expression", "_", "boolean_operator", "_", "boolean_expression"], "postprocess": 
+        d => {
+            return  {
+            type: "binary_operation",
+            left: d[0],
+            right: d[4]
+        }}
+                },
+    {"name": "boolean_operator", "symbols": [(myLexer.has("bool_and") ? {type: "bool_and"} : bool_and)], "postprocess": id},
+    {"name": "boolean_operator", "symbols": [(myLexer.has("bool_or") ? {type: "bool_or"} : bool_or)], "postprocess": id},
+    {"name": "comparison_expression", "symbols": ["additive_expression"], "postprocess": id},
+    {"name": "comparison_expression", "symbols": ["additive_expression", "_", "comparison_operator", "_", "comparison_expression"], "postprocess": 
+        d => {
+           return { 
+            type: "binary_operation",
+            operator: d[2],
+            left: d[0],
+            right: d[4]
+            }
+        }
+                },
+    {"name": "additive_expression", "symbols": ["multiplicative_expression"], "postprocess": id},
+    {"name": "additive_expression", "symbols": ["multiplicative_expression", "_", (myLexer.has("additive_operator") ? {type: "additive_operator"} : additive_operator), "_", "additive_expression"], "postprocess": 
+        data => {
+            return {
+            type: "binary_operation",
+            operator: data[2],
+            left: data[0],
+            right: data[4]
+        }}
+                },
+    {"name": "multiplicative_expression", "symbols": ["unary_expression"], "postprocess": id},
+    {"name": "multiplicative_expression", "symbols": ["unary_expression", "_", (myLexer.has("multiplicative_operator") ? {type: "multiplicative_operator"} : multiplicative_operator), "_", "multiplicative_expression"], "postprocess": 
+        data => {                
+            return{
+            type: "binary_operation",
+            operator: data[2],
+            left: data[0],
+            right: data[4]            
+            }}
+                },
+    {"name": "multiplicative_expression", "symbols": ["unary_expression", "_", (myLexer.has("multiplicative_operator") ? {type: "multiplicative_operator"} : multiplicative_operator), "_", "multiplicative_expression"], "postprocess": 
+        data => {
+            return{
+            type: "binary_operation",
+            operator: data[2],
+            left: data[0],
+            right: data[4]            
+            }
+        }
+                },
+    {"name": "unary_expression", "symbols": ["number"], "postprocess": id},
+    {"name": "unary_expression", "symbols": [(myLexer.has("identifier") ? {type: "identifier"} : identifier)], "postprocess": id},
+    {"name": "unary_expression", "symbols": [(myLexer.has("string") ? {type: "string"} : string)], "postprocess": id},
+    {"name": "unary_expression", "symbols": ["list_literal"], "postprocess": id},
+    {"name": "unary_expression", "symbols": ["dictionary_literal"], "postprocess": id},
+    {"name": "unary_expression", "symbols": ["boolean_literal"], "postprocess": id},
+    {"name": "comparison_operator", "symbols": [(myLexer.has("gt") ? {type: "gt"} : gt)], "postprocess": id},
+    {"name": "comparison_operator", "symbols": [(myLexer.has("gteq") ? {type: "gteq"} : gteq)], "postprocess": id},
+    {"name": "comparison_operator", "symbols": [(myLexer.has("lt") ? {type: "lt"} : lt)], "postprocess": id},
+    {"name": "comparison_operator", "symbols": [(myLexer.has("lteq") ? {type: "lteq"} : lteq)], "postprocess": id},
+    {"name": "comparison_operator", "symbols": [(myLexer.has("eq") ? {type: "eq"} : eq)], "postprocess": id},
     {"name": "list_literal", "symbols": [(myLexer.has("lbigBrac") ? {type: "lbigBrac"} : lbigBrac), "list_items", (myLexer.has("rbigBrac") ? {type: "rbigBrac"} : rbigBrac)], "postprocess": 
         data=> {
              return {
@@ -111,7 +230,10 @@ var grammar = {
     {"name": "dictionary_entries", "symbols": ["_ml", "dictionary_entry", "_ml", {"literal":","}, "dictionary_entries"], "postprocess": 
         data=> [data[1], ...data[4]]
                 },
-    {"name": "dictionary_entry", "symbols": ["expression", "_", (myLexer.has("colon") ? {type: "colon"} : colon), "_", "expression"], "postprocess": 
+    {"name": "dictionary_entry", "symbols": ["non_data_expression", "_", (myLexer.has("colon") ? {type: "colon"} : colon), "_", "non_data_expression"], "postprocess": 
+        data=> [data[0], data[4]]
+                },
+    {"name": "dictionary_entry", "symbols": ["non_data_expression", "_", (myLexer.has("colon") ? {type: "colon"} : colon), "_", "list_literal"], "postprocess": 
         data=> [data[0], data[4]]
                 },
     {"name": "boolean_literal", "symbols": [(myLexer.has("true") ? {type: "true"} : true)], "postprocess": 
