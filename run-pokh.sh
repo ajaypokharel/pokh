@@ -4,6 +4,8 @@ if [  -z $input_file  ] ; then
   exit 1
 fi
 
+nearleyc src/pokh.ne -o src/pokh.js
+
 node src/parse.js $input_file
 node src/generate.js ${input_file%.pokh}.ast
 node ${input_file%.pokh}.js

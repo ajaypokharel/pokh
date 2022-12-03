@@ -1,6 +1,29 @@
+
 a := [1, "a", 4]
 
 
 for i in a {
     stdout(i)
+}
+
+age:= 12.5
+// this
+stdout("Hello", age)    // comment
+
+
+myfunc(x, y) {
+    m := sum(x,y)
+    j := mod(x, y)
+    stdout(m, j)
+}
+
+myfunc(10, 3)
+
+
+if a == 2 {
+    stdout("It's two")
+} else if a > 2 {
+    stdout("It's more")
+} else {
+    stdout("Invalid")
 }
