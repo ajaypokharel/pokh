@@ -5,9 +5,9 @@
    "type": "identifier",
    "value": "a",
    "text": "a",
-   "offset": 0,
+   "offset": 1,
    "lineBreaks": 0,
-   "line": 1,
+   "line": 2,
    "col": 1
   },
   "value": {
@@ -17,27 +17,27 @@
      "type": "digits",
      "value": "1",
      "text": "1",
-     "offset": 6,
+     "offset": 7,
      "lineBreaks": 0,
-     "line": 1,
+     "line": 2,
      "col": 7
     },
     {
      "type": "string",
      "value": "\"a\"",
      "text": "\"a\"",
-     "offset": 9,
+     "offset": 10,
      "lineBreaks": 0,
-     "line": 1,
+     "line": 2,
      "col": 10
     },
     {
      "type": "digits",
      "value": "4",
      "text": "4",
-     "offset": 14,
+     "offset": 15,
      "lineBreaks": 0,
-     "line": 1,
+     "line": 2,
      "col": 15
     }
    ]
@@ -49,18 +49,18 @@
    "type": "identifier",
    "value": "i",
    "text": "i",
-   "offset": 23,
+   "offset": 24,
    "lineBreaks": 0,
-   "line": 4,
+   "line": 5,
    "col": 5
   },
   "iterable": {
    "type": "identifier",
    "value": "a",
    "text": "a",
-   "offset": 28,
+   "offset": 29,
    "lineBreaks": 0,
-   "line": 4,
+   "line": 5,
    "col": 10
   },
   "body": [
@@ -70,9 +70,9 @@
      "type": "identifier",
      "value": "stdout",
      "text": "stdout",
-     "offset": 36,
+     "offset": 37,
      "lineBreaks": 0,
-     "line": 5,
+     "line": 6,
      "col": 5
     },
     "arguments": [
@@ -80,13 +80,397 @@
       "type": "identifier",
       "value": "i",
       "text": "i",
-      "offset": 43,
+      "offset": 44,
       "lineBreaks": 0,
-      "line": 5,
+      "line": 6,
       "col": 12
      }
     ]
    }
   ]
+ },
+ {
+  "type": "var_assignment",
+  "var_name": {
+   "type": "identifier",
+   "value": "age",
+   "text": "age",
+   "offset": 50,
+   "lineBreaks": 0,
+   "line": 9,
+   "col": 1
+  },
+  "value": {
+   "type": "number",
+   "value": "12.5"
+  }
+ },
+ {
+  "type": "comment",
+  "value": "// this",
+  "text": "// this",
+  "offset": 61,
+  "lineBreaks": 0,
+  "line": 10,
+  "col": 1
+ },
+ {
+  "type": "function_call",
+  "function_name": {
+   "type": "identifier",
+   "value": "stdout",
+   "text": "stdout",
+   "offset": 69,
+   "lineBreaks": 0,
+   "line": 11,
+   "col": 1
+  },
+  "arguments": [
+   {
+    "type": "string",
+    "value": "\"Hello\"",
+    "text": "\"Hello\"",
+    "offset": 76,
+    "lineBreaks": 0,
+    "line": 11,
+    "col": 8
+   },
+   {
+    "type": "identifier",
+    "value": "age",
+    "text": "age",
+    "offset": 85,
+    "lineBreaks": 0,
+    "line": 11,
+    "col": 17
+   }
+  ]
+ },
+ {
+  "type": "function_definition",
+  "function_name": {
+   "type": "identifier",
+   "value": "myfunc",
+   "text": "myfunc",
+   "offset": 106,
+   "lineBreaks": 0,
+   "line": 14,
+   "col": 1
+  },
+  "arguments": [
+   {
+    "type": "identifier",
+    "value": "x",
+    "text": "x",
+    "offset": 113,
+    "lineBreaks": 0,
+    "line": 14,
+    "col": 8
+   },
+   {
+    "type": "identifier",
+    "value": "y",
+    "text": "y",
+    "offset": 116,
+    "lineBreaks": 0,
+    "line": 14,
+    "col": 11
+   }
+  ],
+  "body": [
+   {
+    "type": "var_assignment",
+    "var_name": {
+     "type": "identifier",
+     "value": "m",
+     "text": "m",
+     "offset": 125,
+     "lineBreaks": 0,
+     "line": 15,
+     "col": 5
+    },
+    "value": {
+     "type": "function_call",
+     "function_name": {
+      "type": "identifier",
+      "value": "sum",
+      "text": "sum",
+      "offset": 130,
+      "lineBreaks": 0,
+      "line": 15,
+      "col": 10
+     },
+     "arguments": [
+      {
+       "type": "identifier",
+       "value": "x",
+       "text": "x",
+       "offset": 134,
+       "lineBreaks": 0,
+       "line": 15,
+       "col": 14
+      },
+      {
+       "type": "identifier",
+       "value": "y",
+       "text": "y",
+       "offset": 136,
+       "lineBreaks": 0,
+       "line": 15,
+       "col": 16
+      }
+     ]
+    }
+   },
+   {
+    "type": "var_assignment",
+    "var_name": {
+     "type": "identifier",
+     "value": "j",
+     "text": "j",
+     "offset": 143,
+     "lineBreaks": 0,
+     "line": 16,
+     "col": 5
+    },
+    "value": {
+     "type": "function_call",
+     "function_name": {
+      "type": "identifier",
+      "value": "mod",
+      "text": "mod",
+      "offset": 148,
+      "lineBreaks": 0,
+      "line": 16,
+      "col": 10
+     },
+     "arguments": [
+      {
+       "type": "identifier",
+       "value": "x",
+       "text": "x",
+       "offset": 152,
+       "lineBreaks": 0,
+       "line": 16,
+       "col": 14
+      },
+      {
+       "type": "identifier",
+       "value": "y",
+       "text": "y",
+       "offset": 155,
+       "lineBreaks": 0,
+       "line": 16,
+       "col": 17
+      }
+     ]
+    }
+   },
+   {
+    "type": "function_call",
+    "function_name": {
+     "type": "identifier",
+     "value": "stdout",
+     "text": "stdout",
+     "offset": 162,
+     "lineBreaks": 0,
+     "line": 17,
+     "col": 5
+    },
+    "arguments": [
+     {
+      "type": "identifier",
+      "value": "m",
+      "text": "m",
+      "offset": 169,
+      "lineBreaks": 0,
+      "line": 17,
+      "col": 12
+     },
+     {
+      "type": "identifier",
+      "value": "j",
+      "text": "j",
+      "offset": 172,
+      "lineBreaks": 0,
+      "line": 17,
+      "col": 15
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "type": "function_call",
+  "function_name": {
+   "type": "identifier",
+   "value": "myfunc",
+   "text": "myfunc",
+   "offset": 178,
+   "lineBreaks": 0,
+   "line": 20,
+   "col": 1
+  },
+  "arguments": [
+   {
+    "type": "digits",
+    "value": "10",
+    "text": "10",
+    "offset": 185,
+    "lineBreaks": 0,
+    "line": 20,
+    "col": 8
+   },
+   {
+    "type": "digits",
+    "value": "3",
+    "text": "3",
+    "offset": 189,
+    "lineBreaks": 0,
+    "line": 20,
+    "col": 12
+   }
+  ]
+ },
+ {
+  "type": "if_statement",
+  "condition": {
+   "type": "binary_operation",
+   "operator": {
+    "type": "eq",
+    "value": "==",
+    "text": "==",
+    "offset": 199,
+    "lineBreaks": 0,
+    "line": 23,
+    "col": 6
+   },
+   "left": {
+    "type": "identifier",
+    "value": "a",
+    "text": "a",
+    "offset": 197,
+    "lineBreaks": 0,
+    "line": 23,
+    "col": 4
+   },
+   "right": {
+    "type": "digits",
+    "value": "2",
+    "text": "2",
+    "offset": 202,
+    "lineBreaks": 0,
+    "line": 23,
+    "col": 9
+   }
+  },
+  "statement": [
+   {
+    "type": "function_call",
+    "function_name": {
+     "type": "identifier",
+     "value": "stdout",
+     "text": "stdout",
+     "offset": 210,
+     "lineBreaks": 0,
+     "line": 24,
+     "col": 5
+    },
+    "arguments": [
+     {
+      "type": "string",
+      "value": "\"It's two\"",
+      "text": "\"It's two\"",
+      "offset": 217,
+      "lineBreaks": 0,
+      "line": 24,
+      "col": 12
+     }
+    ]
+   }
+  ],
+  "alternate": {
+   "type": "if_statement",
+   "condition": {
+    "type": "binary_operation",
+    "operator": {
+     "type": "gt",
+     "value": ">",
+     "text": ">",
+     "offset": 241,
+     "lineBreaks": 0,
+     "line": 25,
+     "col": 13
+    },
+    "left": {
+     "type": "identifier",
+     "value": "a",
+     "text": "a",
+     "offset": 239,
+     "lineBreaks": 0,
+     "line": 25,
+     "col": 11
+    },
+    "right": {
+     "type": "digits",
+     "value": "2",
+     "text": "2",
+     "offset": 243,
+     "lineBreaks": 0,
+     "line": 25,
+     "col": 15
+    }
+   },
+   "statement": [
+    {
+     "type": "function_call",
+     "function_name": {
+      "type": "identifier",
+      "value": "stdout",
+      "text": "stdout",
+      "offset": 251,
+      "lineBreaks": 0,
+      "line": 26,
+      "col": 5
+     },
+     "arguments": [
+      {
+       "type": "string",
+       "value": "\"It's more\"",
+       "text": "\"It's more\"",
+       "offset": 258,
+       "lineBreaks": 0,
+       "line": 26,
+       "col": 12
+      }
+     ]
+    }
+   ],
+   "alternate": [
+    {
+     "type": "function_call",
+     "function_name": {
+      "type": "identifier",
+      "value": "stdout",
+      "text": "stdout",
+      "offset": 284,
+      "lineBreaks": 0,
+      "line": 28,
+      "col": 5
+     },
+     "arguments": [
+      {
+       "type": "string",
+       "value": "\"Invalid\"",
+       "text": "\"Invalid\"",
+       "offset": 291,
+       "lineBreaks": 0,
+       "line": 28,
+       "col": 12
+      }
+     ]
+    }
+   ]
+  }
  }
 ]

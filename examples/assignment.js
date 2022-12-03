@@ -2,6 +2,24 @@ let a = [1, "a", 4];
 for (let i of a) {
     stdout(i)
 }
+let age = 12.5;
+
+stdout("Hello", age)
+function myfunc(x, y) {
+	let m = sum(x, y);
+	let j = mod(x, y);
+	stdout(m, j)
+}
+myfunc(10, 3)
+if (a == 2) {
+    stdout("It's two")
+}
+else if (a > 2) {
+    stdout("It's more")
+}
+else {
+    stdout("Invalid")
+}
 function stdout(...args) {
   console.log(...args);
 }
