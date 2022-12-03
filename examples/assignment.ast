@@ -1,0 +1,92 @@
+[
+ {
+  "type": "var_assignment",
+  "var_name": {
+   "type": "identifier",
+   "value": "a",
+   "text": "a",
+   "offset": 0,
+   "lineBreaks": 0,
+   "line": 1,
+   "col": 1
+  },
+  "value": {
+   "type": "list_literal",
+   "items": [
+    {
+     "type": "digits",
+     "value": "1",
+     "text": "1",
+     "offset": 6,
+     "lineBreaks": 0,
+     "line": 1,
+     "col": 7
+    },
+    {
+     "type": "string",
+     "value": "\"a\"",
+     "text": "\"a\"",
+     "offset": 9,
+     "lineBreaks": 0,
+     "line": 1,
+     "col": 10
+    },
+    {
+     "type": "digits",
+     "value": "4",
+     "text": "4",
+     "offset": 14,
+     "lineBreaks": 0,
+     "line": 1,
+     "col": 15
+    }
+   ]
+  }
+ },
+ {
+  "type": "for_loop",
+  "loop_variable": {
+   "type": "identifier",
+   "value": "i",
+   "text": "i",
+   "offset": 23,
+   "lineBreaks": 0,
+   "line": 4,
+   "col": 5
+  },
+  "iterable": {
+   "type": "identifier",
+   "value": "a",
+   "text": "a",
+   "offset": 28,
+   "lineBreaks": 0,
+   "line": 4,
+   "col": 10
+  },
+  "body": [
+   {
+    "type": "function_call",
+    "function_name": {
+     "type": "identifier",
+     "value": "stdout",
+     "text": "stdout",
+     "offset": 36,
+     "lineBreaks": 0,
+     "line": 5,
+     "col": 5
+    },
+    "arguments": [
+     {
+      "type": "identifier",
+      "value": "i",
+      "text": "i",
+      "offset": 43,
+      "lineBreaks": 0,
+      "line": 5,
+      "col": 12
+     }
+    ]
+   }
+  ]
+ }
+]

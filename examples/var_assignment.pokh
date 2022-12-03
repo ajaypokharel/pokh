@@ -1,18 +1,11 @@
-n := "Ajay"
 age:= 12.5
 // this
-stdout("Hello", 2)    // comment
+stdout("Hello", age)    // comment
 
 y := [1, 2, 3]
-x := true
+x := 1
 
-dict := {
-    1:2,
-    3:4,
-    5:5
-}
-
-stdout(dict, y)
+x := x * 3
 
 myfunc(x, y) {
     m := sum(x,y)
@@ -21,3 +14,10 @@ myfunc(x, y) {
 }
 
 myfunc(10, 3)
+
+a := 0
+
+while a < 5 {
+    stdout(a)
+    a := 6
+}

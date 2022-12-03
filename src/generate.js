@@ -91,9 +91,74 @@ generateJsForStatement = (node) => {
         .join(", ") +
       "]";
     return listLiteral;
+  } else if (node.type === "binary_operation") {
+    const right = generateJsForStatement(node.right);
+
+    const left = generateJsForStatement(node.left);
+    const operator = node.operator.value;
+    if (!operator) {
+      throw new Error("Unknown operator " + operator.value);
+    }
+    return `${left} ${operator} ${right}`;
+  } else if (node.type === "for_loop") {
+    const loopVar = node.loop_variable.value;
+    const ret = indent(
+      node.body
+        .map((statement) => {
+          return generateJsForStatement(statement);
+        })
+        .join("\n")
+    );
+    return [
+      `for (let ${loopVar} of ${generateJsForStatement(node.iterable)}) {`,
+      ret,
+      "}",
+    ].join("\n");
+  } else if (node.type === "if_statement") {
+    const condition = generateJsForStatement(node.condition);
+    const alternate = node.alternate
+      ? generateCodeForIfAlternate(node.alternate)
+      : "";
+    const stmnt = node.statement
+      .map((statement) => {
+        return generateJsForStatement(statement);
+      })
+      .join("\n");
+    return [`if (${condition}) {`, indent(stmnt), "}", alternate].join("\n");
   } else {
     throw new Error(`Unhandled AST node type ${node.type}`);
   }
 };
 
 main().catch((err) => console.log(err.stack));
+
+function generateCodeForCodeBlock(codeBlock) {
+  return indent(
+    codeBlock.map((statement) => generateJsForStatement(statement)).join("\n")
+  );
+}
+
+function indent(str) {
+  return str
+    .split("\n")
+    .map((line) => "    " + line)
+    .join("\n");
+}
+
+function generateCodeForIfAlternate(alternate) {
+  if (alternate.type === "if_statement") {
+    return "else " + generateJsForStatement(alternate);
+  } else {
+    return (
+      "else {\n" +
+      indent(
+        alternate
+          .map((statement) => {
+            return generateJsForStatement(statement);
+          })
+          .join("\n")
+      ) +
+      "\n}"
+    );
+  }
+}
